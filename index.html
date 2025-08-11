@@ -1,475 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Passdown Pro v6</title>
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./styles.css">
-  <meta name="theme-color" content="#0f172a">
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Passdown Pro v7</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="stylesheet" href="./styles.css">
+<meta name="theme-color" content="#0f172a">
 </head>
 <body>
-  <header>
-    <h1 id="appTitle" title="Passdown Pro">Passdown Pro</h1>
-    <div class="actions">
-      <button id="btn-dark">🌙</button>
-      <button id="btn-tip-manager">Tips</button>
-      <button id="btn-settings">Settings</button>
-      <button id="btn-copy-open">Copy & Open Slack</button>
-      <button id="btn-export">Export Now</button>
-    </div>
-  </header>
+<header>
+  <h1 id="appTitle" title="Passdown Pro">Passdown Pro</h1>
+  <div class="actions">
+    <button id="btn-dark" title="Toggle theme">🌙</button>
+    <button id="btn-tip-manager" title="Manage safety tips">Tips</button>
+    <button id="btn-settings">Settings</button>
+    <button id="btn-copy-open">Copy & Open Slack</button>
+    <button id="btn-export">Export Now</button>
+  </div>
+</header>
 
-  <main>
-    <section class="grid">
-      <label>
-        <span>Shift Group</span>
-        <select id="shiftGroup">
-          <option value="">Select…</option>
-          <option>Front Half Days</option>
-          <option>Front Half Nights</option>
-          <option>Back Half Days</option>
-          <option>Back Half Nights</option>
-        </select>
-      </label>
+<main>
+  <section class="grid">
+    <label><span>Shift Group</span>
+      <select id="shiftGroup">
+        <option value="">Select…</option>
+        <option>Front Half Days</option><option>Front Half Nights</option>
+        <option>Back Half Days</option><option>Back Half Nights</option>
+      </select>
+    </label>
 
-      <label class="full">
-        <span>Techs</span>
-        <div class="picker">
-          <input id="techSearch" placeholder="Search techs…" />
-          <div id="techList" class="list"></div>
-        </div>
-        <div id="techChips" class="chips"></div>
-        <input id="techManual" placeholder="Add manual names (comma-separated)" />
-      </label>
-
-      <label>
-        <span>Start of Shift TT</span>
-        <input id="startTT" placeholder="Topic or key point" />
-      </label>
-      <label>
-        <span>End of Shift TT</span>
-        <input id="endTT" placeholder="Topic or reminder" />
-      </label>
-      <label>
-        <span>Parts used</span>
-        <input id="partsUsed" placeholder="N/A" />
-      </label>
-    </section>
-
-    <section>
-      <label>
-        <span id="safetyLabel">Safety Tip</span>
-        <div class="row">
-          <select id="tipMode">
-            <option value="pro">Professional</option>
-          </select>
-          <button id="btnRandomTip">Random Tip</button>
-          <button id="btnAddTip">Add New Tip</button>
-        </div>
-        <textarea id="safetyTip" rows="2" placeholder="Click Random Tip or type your own"></textarea>
-      </label>
-    </section>
-
-    <section>
-      <label>
-        <span>Shift Summary</span>
-        <textarea id="summary" rows="4" placeholder="Essential only — what changed, what's pending, what needs eyes"></textarea>
-      </label>
-    </section>
-
-    <section>
-      <h3>Preview (Slack message)</h3>
-      <pre id="preview"></pre>
-    </section>
-  </main>
-
-  <dialog id="dlg-settings">
-    <form method="dialog">
-      <h2>Settings</h2>
-      <label><span>Slack Channel Note</span><input id="set-channelNote" value="#passdown" /></label>
-      <label><span>Reminder (minutes)</span><input id="set-reminder" type="number" min="0" value="120" /></label>
-      <label><span>Dark mode</span><select id="set-dark"><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
-      <menu><button value="cancel">Close</button><button id="btn-save-settings" value="default">Save</button></menu>
-    </form>
-  </dialog>
-
-  <dialog id="dlg-tips">
-    <form method="dialog">
-      <h2>Manage Safety Tips</h2>
-      <div class="row">
-        <select id="mgr-list">
-          <option value="pro">Professional</option>
-          <option value="petty" class="hiddenPetty">Funny/Petty (Tech Mode)</option>
-        </select>
-        <button id="mgr-export">Export</button>
-        <label class="fileLabel">Import <input type="file" id="mgr-import" accept="application/json"></label>
+    <label class="full"><span>Techs</span>
+      <div class="picker">
+        <input id="techSearch" placeholder="Search techs…">
+        <div id="techList" class="list"></div>
       </div>
-      <div id="mgr-items"></div>
+      <div id="techChips" class="chips"></div>
+      <input id="techManual" placeholder="Add manual names (comma-separated)">
+    </label>
+
+    <label><span>Start of Shift TT</span><input id="startTT" placeholder="Topic or key point"></label>
+    <label><span>End of Shift TT</span><input id="endTT" placeholder="Topic or reminder"></label>
+    <label><span>Parts used</span><input id="partsUsed" placeholder="N/A"></label>
+  </section>
+
+  <section>
+    <label><span id="safetyLabel">Safety Tip</span>
       <div class="row">
-        <input id="mgr-new" placeholder="New tip…" />
-        <button id="mgr-add">Add</button>
+        <select id="tipMode"><option value="pro">Professional</option></select>
+        <button id="btnRandomTip">Random Tip</button>
+        <button id="btnAddTip">Add New Tip</button>
       </div>
-      <menu><button value="cancel">Close</button></menu>
-    </form>
-  </dialog>
+      <textarea id="safetyTip" rows="2" placeholder="Click Random Tip or type your own"></textarea>
+    </label>
+  </section>
 
-  <dialog id="dlg-export">
-    <form method="dialog">
-      <h2>Weekly Report (Preview)</h2>
-      <input id="searchReport" placeholder="Search in report…">
-      <iframe id="reportFrame" title="Weekly Report" class="report"></iframe>
-      <menu><button id="btn-download-report">Download</button><button value="cancel">Close</button></menu>
-    </form>
-  </dialog>
+  <section>
+    <label><span>Attach Photos (optional)</span>
+      <div class="row">
+        <input id="photoInput" type="file" accept="image/*" capture="environment" multiple>
+        <button id="btnClearPhotos" type="button">Clear Photos</button>
+      </div>
+      <div id="photoPreview" class="preview-photos"></div>
+    </label>
+  </section>
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js'));
-    }
-  </script>
-  <script>
-const USERS = [{"name": "Daniel", "user": "cookjdan"}, {"name": "Trezevant", "user": "trezevga"}, {"name": "Larry", "user": "klarjack"}, {"name": "Marvin", "user": "bermarv"}, {"name": "Jason", "user": "millrov"}, {"name": "Arshon", "user": "arshoben"}, {"name": "Christon", "user": "bealchr"}, {"name": "Christipher", "user": "chlewisb"}, {"name": "Darnell", "user": "darlgibs"}, {"name": "Darrion", "user": "dccarabi"}, {"name": "James", "user": "jamsv"}, {"name": "Jason O.", "user": "jasoocon"}, {"name": "Jim", "user": "jiwlli"}, {"name": "Micheal", "user": "mmichhas"}, {"name": "Randall", "user": "gooranda"}];
-const $ = (s)=>document.querySelector(s);
-const ls = { get:(k,v)=>{ try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(v));}catch{return v;} }, set:(k,v)=>localStorage.setItem(k,JSON.stringify(v)) };
-const nowISO = ()=> new Date().toISOString();
-const state = ls.get('pd_state_v6', {
-  shiftGroup:'', techsSelected:[], techManual:'',
-  startTT:'', endTT:'', partsUsed:'N/A',
-  safetyTip:'', tipMode:'pro', techMode:false,
-  channelNote:'#passdown', reminderMin: 120, dark: 'auto',
-  logs: [], lastExportWeekEnd: '', tips: {
-    pro: [
-      "Use PPE appropriate to the task; verify fit before starting.",
-      "Maintain three points of contact on stairs and ladders.",
-      "Report spills and trip hazards immediately and block off area.",
-      "Secure laces, jewelry, and clothing near moving machinery.",
-      "Lift with legs; keep load close; team-lift heavy items.",
-      "Lockout/Tagout before servicing. Verify zero energy state.",
-      "Review SDS before handling chemicals; store properly.",
-      "Hydrate and take micro-breaks to reduce strain.",
-      "Inspect tools before use; tag out damaged equipment.",
-      "Keep exits and aisles clear; stage parts in designated zones.",
-      "Use handrails; don’t carry items that obstruct your view.",
-      "Wear hearing protection in high-noise areas.",
-      "Use proper lighting; replace dim or failed bulbs promptly.",
-      "Use the right ladder height; do not stand on top step.",
-      "Gloves on when handling sharp edges or sheet metal.",
-      "Use spotters around forklifts; make eye contact with the driver.",
-      "Check torque specs; don’t guess on critical fasteners.",
-      "Bleed pressure before disconnecting air lines.",
-      "Verify isolation before removing guards; reattach after work.",
-      "Confirm equipment returns to normal parameters after repair."
-    ],
-    petty: [
-      "Tie your shoes. Falling hurts more when getting up takes all morning.",
-      "Use the handrail — stairs are undefeated since forever.",
-      "Wear PPE. Squinting is not eye protection.",
-      "Shortcuts? Fun until your name trends in the incident log.",
-      "Lift with your legs — your back already filed for retirement.",
-      "If it smells weird, don’t taste-test it. Not a cooking show.",
-      "Hear a pop? Stop. Whether it’s your knee or the machine, neither is happy.",
-      "Clean as you go — tripping on your own mess is a career lowlight.",
-      "Gloves are cheaper than stitches. Your call.",
-      "Lockout beats luck-out. Choose wisely.",
-      "Spills don’t evaporate because you looked at them sternly.",
-      "Walking and texting is a duet with gravity.",
-      "Test before you trust — tools, guards, and ladders.",
-      "If you can’t lift it, ask. Pride isn’t PPE.",
-      "Report hazards faster than you can complain about them.",
-      "Don’t be a hero; be a teammate with all your fingers.",
-      "Eye wash stations aren’t decorative. Know where they are.",
-      "Loose sleeves + rotating shafts = HR fan club.",
-      "If it’s hot enough to sizzle, it’s hot enough to label.",
-      "Secure long beards/hair unless you want a surprise haircut."
-    ]
-  }
-});
+  <section>
+    <label><span>Shift Summary</span>
+      <textarea id="summary" rows="4" placeholder="Essential only — what changed, what's pending, what needs eyes"></textarea>
+    </label>
+  </section>
 
-function save(){ ls.set('pd_state_v6', state); }
+  <section>
+    <h3>Preview (Slack message)</h3>
+    <pre id="preview"></pre>
+    <div class="small" style="color:var(--muted);font-size:12px">Photos won’t paste with the text. Share them to Slack separately or include them in the weekly export.</div>
+  </section>
+</main>
 
-function applyTheme(){
-  const root = document.documentElement;
-  let mode = state.dark;
-  if (mode==='auto'){
-    const prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    mode = prefers ? 'dark' : 'light';
-  }
-  root.dataset.theme = mode;
-}
-applyTheme();
+<!-- Settings -->
+<dialog id="dlg-settings"><form method="dialog">
+  <h2>Settings</h2>
+  <label><span>Slack Channel Note</span><input id="set-channelNote" value="#passdown"></label>
+  <label><span>Reminder (minutes)</span><input id="set-reminder" type="number" min="0" value="120"></label>
+  <label><span>Dark mode</span><select id="set-dark"><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+  <menu><button value="cancel">Close</button><button id="btn-save-settings" value="default">Save</button></menu>
+</form></dialog>
 
-function drawTechs(filter=''){
-  const list = $('#techList'); list.innerHTML='';
-  USERS.filter(u => (u.name+' '+u.user).toLowerCase().includes(filter.toLowerCase()))
-    .forEach(u=>{
-      const id = 'tech_'+u.user;
-      const row = document.createElement('label');
-      row.className='item';
-      row.innerHTML = `<input type="checkbox" id="${id}" data-user="${u.user}" data-name="${u.name}"> <span>${u.name} (@${u.user})</span>`;
-      const cb = row.querySelector('input');
-      cb.checked = state.techsSelected.some(t=>t.user===u.user);
-      cb.onchange = ()=>{
-        if(cb.checked) state.techsSelected.push({name:u.name, user:u.user});
-        else state.techsSelected = state.techsSelected.filter(t=>t.user!==u.user);
-        save(); drawTechs(filter); drawChips();
-      };
-      list.appendChild(row);
-    });
-}
-function drawChips(){
-  const chips = $('#techChips'); chips.innerHTML='';
-  state.techsSelected.forEach(t=>{
-    const el = document.createElement('span');
-    el.className='chip';
-    el.innerHTML=`${t.name} (@${t.user}) <button aria-label="remove">&times;</button>`;
-    el.querySelector('button').onclick = ()=>{
-      state.techsSelected = state.techsSelected.filter(x=>x.user!==t.user);
-      save(); drawTechs($('#techSearch').value); drawChips(); render();
-    };
-    chips.appendChild(el);
-  });
-}
-$('#techSearch').oninput = (e)=> drawTechs(e.target.value);
-drawTechs(''); drawChips();
+<!-- Tip manager -->
+<dialog id="dlg-tips"><form method="dialog">
+  <h2>Manage Safety Tips</h2>
+  <div class="row">
+    <select id="mgr-list"><option value="pro">Professional</option><option value="petty" class="hiddenPetty">Funny/Petty (Tech Mode)</option></select>
+    <button id="mgr-export">Export</button>
+    <label class="fileLabel">Import <input type="file" id="mgr-import" accept="application/json"></label>
+  </div>
+  <div id="mgr-items"></div>
+  <div class="row"><input id="mgr-new" placeholder="New tip…"><button id="mgr-add">Add</button></div>
+  <menu><button value="cancel">Close</button></menu>
+</form></dialog>
 
-function randomTip(){
-  const list = (state.tipMode==='pro' ? state.tips.pro : state.tips.petty);
-  const pick = list[Math.floor(Math.random()*list.length)] || '';
-  $('#safetyTip').value = pick;
-  state.safetyTip = pick;
-  save(); render();
-}
-$('#btnRandomTip').onclick = randomTip;
+<!-- Export dialog -->
+<dialog id="dlg-export"><form method="dialog">
+  <h2>Weekly Report (Preview)</h2>
+  <input id="searchReport" placeholder="Search in report…">
+  <iframe id="reportFrame" title="Weekly Report" class="report"></iframe>
+  <menu><button id="btn-download-report">Download</button><button value="cancel">Close</button></menu>
+</form></dialog>
 
-let taps=0, tapTimer=null;
-$('#appTitle').onclick = ()=>{
-  taps++; clearTimeout(tapTimer);
-  tapTimer = setTimeout(()=>{ taps=0; }, 600);
-  if (taps>=5){
-    taps=0;
-    state.techMode = !state.techMode;
-    const banner = document.createElement('div');
-    banner.className='banner';
-    banner.textContent = state.techMode ? '🎉 Nice Ballz Mode Activated' : 'Nice Ballz Mode Off';
-    document.body.appendChild(banner);
-    setTimeout(()=> banner.remove(), 3000);
-    const tipMode = $('#tipMode');
-    tipMode.innerHTML = state.techMode
-      ? '<option value="pro">Professional</option><option value="petty">Funny/Petty</option>'
-      : '<option value="pro">Professional</option>';
-    state.tipMode='pro'; $('#safetyLabel').textContent='Safety Tip';
-    save();
-  }
-};
-
-(function autoTipOnStart(){
-  if(!state.safetyTip){ state.tipMode = 'pro'; randomTip(); }
-})();
-
-function drawTipManager(){
-  const listSel = $('#mgr-list');
-  $('#mgr-items').innerHTML = '';
-  const arr = (listSel.value==='pro') ? state.tips.pro : state.tips.petty;
-  arr.forEach((tip, idx)=>{
-    const row = document.createElement('div');
-    row.className = 'mgr-row';
-    row.innerHTML = `<input class="mgr-tip" value="${tip.replace('"','&quot;')}"><button data-i="${idx}" class="mgr-del">Delete</button>`;
-    row.querySelector('.mgr-tip').oninput = (e)=>{ arr[idx] = e.target.value.trim(); save(); };
-    row.querySelector('.mgr-del').onclick = ()=>{ arr.splice(idx,1); save(); drawTipManager(); };
-    $('#mgr-items').appendChild(row);
-  });
-  document.querySelector('.hiddenPetty').style.display = state.techMode ? '' : 'none';
-}
-$('#btn-tip-manager').onclick = ()=>{ drawTipManager(); $('#dlg-tips').showModal(); };
-$('#mgr-list').onchange = drawTipManager;
-$('#mgr-add').onclick = (e)=>{ e.preventDefault(); const val = $('#mgr-new').value.trim(); if(!val) return; const arr = ($('#mgr-list').value==='pro')?state.tips.pro:state.tips.petty; arr.push(val); $('#mgr-new').value=''; save(); drawTipManager(); };
-$('#mgr-export').onclick = (e)=>{ e.preventDefault(); const data = JSON.stringify(state.tips, null, 2); const blob = new Blob([data], {type:'application/json'}); const u = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=u; a.download='safety-tips.json'; a.click(); URL.revokeObjectURL(u); };
-$('#mgr-import').onchange = (e)=>{ const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = ()=>{ try{ const data = JSON.parse(r.result); if(data.pro && data.petty){ state.tips = data; save(); drawTipManager(); alert('Imported tips ✔'); } else alert('Invalid tips file.'); } catch{ alert('Invalid JSON.'); } }; r.readAsText(f); };
-
-$('#btnAddTip').onclick = ()=>{
-  const text = prompt('New safety tip:');
-  if(!text) return;
-  const listKey = (state.techMode && $('#tipMode').value==='petty') ? 'petty' : 'pro';
-  state.tips[listKey].push(text.trim());
-  state.safetyTip = text.trim();
-  $('#safetyTip').value = text.trim();
-  save(); render();
-};
-
-function tighten(s){ return (s||'').replace(/\bvery\b|\bjust\b|\bkind of\b|\bbasically\b/gi,'').replace(/\s+/g,' ').trim(); }
-[['#shiftGroup','shiftGroup'], ['#startTT','startTT'], ['#endTT','endTT'], ['#partsUsed','partsUsed'], ['#safetyTip','safetyTip'], ['#summary','summary'], ['#techManual','techManual']].forEach(([sel,key])=>{
-  const el = $(sel); el.value = state[key] || ''; el.addEventListener('input', ()=>{ state[key]=el.value; save(); render(); });
-});
-
-function techLine(){
-  const picks = state.techsSelected.map(t=> `${t.name} (@${t.user})`);
-  const manual = state.techManual.split(',').map(s=>s.trim()).filter(Boolean);
-  return [...picks, ...manual].join(', ');
-}
-function render(){
-  const header = [
-    `Shift: ${tighten(state.shiftGroup) || '(select)'}`,
-    `Techs: ${techLine()}`,
-    `Start of Shift TT: ${tighten(state.startTT)}`,
-    `End of Shift TT: ${tighten(state.endTT)}`,
-    `Parts used: ${tighten(state.partsUsed||'N/A')}`,
-    '',
-    `Safety Tip: ${tighten(state.safetyTip)}`,
-    '',
-    `Shift Summary: ${tighten(state.summary)}`
-  ].join('\n');
-  $('#preview').textContent = [header, '\n_'+(state.channelNote||'#passdown')+'_'].join('\n');
-}
-render();
-
-function copyAndOpenSlack(){
-  const missing = [];
-  if(!state.shiftGroup) missing.push('Shift Group');
-  if(!techLine()) missing.push('Techs');
-  if(!tighten(state.safetyTip)) missing.push('Safety Tip');
-  if(!tighten(state.summary)) missing.push('Shift Summary');
-  if(missing.length){ alert('Missing: ' + missing.join(', ')); return; }
-
-  navigator.clipboard.writeText($('#preview').textContent).then(()=>{
-    window.location.href = 'slack://';
-    setTimeout(()=>{ window.location.href = 'https://slack.com/app_redirect'; }, 600);
-    // Log passdown
-    state.logs.push({
-      ts: nowISO(), shiftGroup: state.shiftGroup, techs: techLine(),
-      safetyTip: state.safetyTip, summary: state.summary, parts: state.partsUsed||'N/A',
-      petty: (state.techMode && state.tipMode==='petty')
-    }); save();
-  }).catch(()=> alert('Could not copy to clipboard.'));
-}
-$('#btn-copy-open').onclick = copyAndOpenSlack;
-
-$('#btn-settings').onclick = ()=>{
-  $('#set-channelNote').value = state.channelNote || '#passdown';
-  $('#set-reminder').value = state.reminderMin || 120;
-  $('#set-dark').value = state.dark || 'auto';
-  $('#dlg-settings').showModal();
-};
-$('#btn-save-settings').onclick = (e)=>{
-  e.preventDefault();
-  state.channelNote = $('#set-channelNote').value.trim() || '#passdown';
-  state.reminderMin = Math.max(0, Number($('#set-reminder').value||120));
-  state.dark = $('#set-dark').value;
-  save(); applyTheme(); $('#dlg-settings').close();
-};
-$('#btn-dark').onclick = ()=>{
-  state.dark = (document.documentElement.dataset.theme==='dark') ? 'light' : 'dark';
-  save(); applyTheme();
-};
-
-let reminderTimer=null;
-function scheduleReminders(){
-  if(reminderTimer) clearInterval(reminderTimer);
-  const min = Number(state.reminderMin||0); if(!min) return;
-  reminderTimer = setInterval(()=> notify('Passdown Reminder','Note any updates now so nothing gets forgotten.'), min*60*1000);
-}
-function notify(title, body){
-  if(Notification && Notification.permission==='granted'){
-    navigator.serviceWorker.getRegistration().then(reg=>{
-      if(reg && reg.showNotification){ reg.showNotification(title, { body }); }
-      else new Notification(title, { body });
-    });
-  }
-}
-if(Notification && Notification.permission!=='granted'){ Notification.requestPermission().then(()=>scheduleReminders()); } else { scheduleReminders(); }
-
-function weekRange(d=new Date()){
-  const day = d.getDay(); const sun = new Date(d); sun.setDate(d.getDate()-day); sun.setHours(0,0,0,0);
-  const sat = new Date(sun); sat.setDate(sun.getDate()+6); sat.setHours(23,59,59,999);
-  return { start: sun, end: sat };
-}
-function summarize(logs){
-  const focus = { issues: [], parts: [], safety: [] };
-  logs.forEach(l=>{ if(l.summary) focus.issues.push(l.summary); if(l.parts && l.parts!=='N/A') focus.parts.push(l.parts); if(l.safetyTip) focus.safety.push(l.safetyTip); });
-  const uniq = (a)=>Array.from(new Set(a.map(s=>s.trim()).filter(Boolean)));
-  return { issues: uniq(focus.issues).slice(0,10), parts: uniq(focus.parts).slice(0,10), safety: uniq(focus.safety).slice(0,10) };
-}
-function groupByShift(logs){
-  const g = { 'Front Half Days':[], 'Front Half Nights':[], 'Back Half Days':[], 'Back Half Nights':[], '':[] };
-  logs.forEach(l=> (g[l.shiftGroup]||g['']).push(l) );
-  return g;
-}
-function buildReportHTML(range, logs){
-  const grouped = groupByShift(logs);
-  const sum = summarize(logs);
-  const pad = (n)=> n.toString().padStart(2,'0');
-  const fmt = (d)=> [d.getFullYear(), pad(d.getMonth()+1), pad(d.getDate())].join('-');
-  const title = `Passdowns ${fmt(range.start)} to ${fmt(range.end)}`;
-  const sections = Object.keys(grouped).filter(k=>k).map(k=>{
-    const items = grouped[k].map(l=>`<li><b>${l.ts.slice(0,16).replace('T',' ')}</b> — <i>${l.techs}</i><br>Safety: ${l.safetyTip}<br>Parts: ${l.parts}<br>${l.summary}</li>`).join('');
-    return `<h3>${k}</h3><ol>${items}</ol>`;
-  }).join('');
-  const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${title}</title>
-    <style>body{font:14px/1.4 system-ui,Segoe UI,Inter,Roboto,Arial} h1,h2,h3{margin:.4em 0} .muted{color:#555} ol{padding-left:18px}</style></head>
-    <body>
-    <h1>${title}</h1>
-    <h2>Weekly Summary</h2>
-    <p class="muted">Generated locally on your device.</p>
-    <h3>Key Issues & Notes</h3><ul>${sum.issues.map(i=>`<li>${i}</li>`).join('')}</ul>
-    <h3>Parts Mentioned</h3><ul>${sum.parts.map(i=>`<li>${i}</li>`).join('')}</ul>
-    <h3>Safety Highlights</h3><ul>${sum.safety.map(i=>`<li>${i}</li>`).join('')}</ul>
-    <hr>
-    <h2>Full Passdown Log</h2>
-    ${sections}
-    </body></html>`;
-  return html;
-}
-function openReport(range, logs){
-  const html = buildReportHTML(range, logs);
-  const blob = new Blob([html], {type:'text/html'});
-  const url = URL.createObjectURL(blob);
-  const iframe = document.getElementById('reportFrame');
-  iframe.src = url;
-  document.getElementById('dlg-export').showModal();
-  document.getElementById('searchReport').oninput = (e)=>{
-    const q = e.target.value.toLowerCase();
-    const doc = iframe.contentDocument || iframe.contentWindow.document;
-    if(!doc) return;
-    // remove old
-    doc.querySelectorAll('mark._hl').forEach(m=> m.replaceWith(m.textContent));
-    if(!q) return;
-    const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
-    const nodes=[]; while(walker.nextNode()) nodes.append(walker.currentNode)
-  };
-  document.getElementById('btn-download-report').onclick = ()=>{
-    const a = document.createElement('a'); a.href = url; a.download = 'Passdowns_'+range.start.toISOString().slice(0,10)+'_to_'+range.end.toISOString().slice(0,10)+'.html'; a.click();
-  };
-}
-document.getElementById('btn-export').onclick = ()=>{
-  const {start,end} = weekRange(new Date());
-  const logs = state.logs.filter(l=>{ const t=new Date(l.ts); return t>=start && t<=end; });
-  openReport({start,end}, logs);
-};
-
-function checkAutoExport(){
-  const {start,end} = weekRange(new Date());
-  const weekEndISO = end.toISOString().slice(0,10);
-  if(state.lastExportWeekEnd !== weekEndISO){
-    const prevEnd = new Date(end); prevEnd.setDate(end.getDate()-7);
-    const prevRange = weekRange(prevEnd);
-    const logs = state.logs.filter(l=>{ const t=new Date(l.ts); return t>=prevRange.start && t<=prevRange.end; });
-    if(logs.length){
-      openReport(prevRange, logs);
-      state.lastExportWeekEnd = weekEndISO; save();
-    }
-  }
-}
-checkAutoExport();
-setInterval(checkAutoExport, 60*60*1000);
-
-(function initTipMode(){
-  const tipMode = document.getElementById('tipMode');
-  tipMode.innerHTML = state.techMode
-    ? '<option value="pro">Professional</option><option value="petty">Funny/Petty</option>'
-    : '<option value="pro">Professional</option>';
-  tipMode.value = state.tipMode || 'pro';
-  tipMode.onchange = ()=>{ state.tipMode = tipMode.value; save(); };
-})();
-  </script>
-</body>
-</html>
+<script src="./app.js"></script>
+<script>if('serviceWorker'in navigator){addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'))}</script>
+</body></html>
